@@ -1,4 +1,4 @@
-Current configuration : 1074 bytes
+Current configuration : 1144 bytes
 !
 version 16.6.4
 no service timestamps log datetime msec
@@ -58,6 +58,10 @@ interface GigabitEthernet0/0/1.4
  description Operations
  encapsulation dot1Q 4
  ip address 192.168.4.1 255.255.255.0
+!
+interface GigabitEthernet0/0/1.8
+ description Native
+ no ip address
 !
 interface GigabitEthernet0/0/2
  no ip address
