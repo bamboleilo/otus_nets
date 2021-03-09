@@ -1,4 +1,4 @@
-Current configuration : 3115 bytes
+Current configuration : 2925 bytes
 !
 version 15.0
 no service timestamps log datetime msec
@@ -19,7 +19,6 @@ spanning-tree mode pvst
 spanning-tree extend system-id
 !
 interface FastEthernet0/1
- switchport access vlan 8
  switchport trunk native vlan 8
  switchport trunk allowed vlan 3-4
  switchport mode trunk
@@ -40,7 +39,6 @@ interface FastEthernet0/4
  shutdown
 !
 interface FastEthernet0/5
- switchport access vlan 8
  switchport trunk allowed vlan 3-4,8
  switchport mode trunk
 !
@@ -140,15 +138,11 @@ interface FastEthernet0/24
 !
 interface GigabitEthernet0/1
  switchport access vlan 7
- switchport trunk native vlan 8
- switchport trunk allowed vlan 3-4,7
  switchport mode access
  shutdown
 !
 interface GigabitEthernet0/2
  switchport access vlan 7
- switchport trunk native vlan 8
- switchport trunk allowed vlan 3-4,7
  switchport mode access
  shutdown
 !
