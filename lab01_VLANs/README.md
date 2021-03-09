@@ -43,3 +43,33 @@
 
 ![image](https://user-images.githubusercontent.com/39755453/110502572-22a1dd00-811d-11eb-92e6-479856f262dd.png)
 
+###  Пример настройки на маршрутизаторе R1:
+
+```
+service password-encryption
+!
+hostname R1
+!
+enable secret 5 $1$mERr$9cTjUIEqNGurQiFU.ZeCi1
+!
+no ip domain-lookup
+!
+banner motd ^CAuthorized Access Only!^C
+!
+line con 0
+ password 7 0822455D0A16
+!
+line aux 0
+!
+line vty 0 4
+ password 7 0822455D0A16
+ login
+line vty 5 15
+ password 7 0822455D0A16
+ login
+!
+```
+
+Аналогично с коммутаторами
+
+### **3. Создание сетей VLAN и назначение портов. Настройка маршрутизации**
