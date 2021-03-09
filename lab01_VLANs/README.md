@@ -139,7 +139,7 @@ interface GigabitEthernet0/0/1.8
 
 ![image](https://user-images.githubusercontent.com/39755453/110507654-048aab80-8122-11eb-99c2-4b10bc3d30bc.png)
 
-Все файлы конфигураций приведены [здесь](configs/)
+Все файлы конфигураций приведены [здесь](config/)
 
 ### **4. Проверка работы маршрутизации**
 
