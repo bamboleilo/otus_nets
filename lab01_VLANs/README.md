@@ -149,8 +149,4 @@ interface GigabitEthernet0/0/1.8
 
 Проверка связности с PC-B
 
-![image](https://user-images.githubusercontent.com/39755453/110508377-c477f880-8122-11eb-9dca-7575ddfcdfb3.png)
-
-
-
-
+![image](https://user-images.githubusercontent.com/39755453/110508561-f0937980-8122-11eb-8318-9c0d066e3049.png)
