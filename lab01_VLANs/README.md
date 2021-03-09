@@ -73,3 +73,21 @@ line vty 5 15
 Аналогично с коммутаторами
 
 ### **3. Создание сетей VLAN и назначение портов. Настройка маршрутизации**
+
+###  Пример настройки на коммутаторе S1:
+
+```
+!
+interface FastEthernet0/1
+ switchport access vlan 8
+ switchport trunk native vlan 8
+ switchport trunk allowed vlan 3-4
+ switchport mode trunk
+!
+interface FastEthernet0/2
+ switchport access vlan 7
+ switchport mode access
+ shutdown
+!
+
+```
