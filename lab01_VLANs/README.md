@@ -79,7 +79,6 @@ line vty 5 15
 ```
 !
 interface FastEthernet0/1
- switchport access vlan 8
  switchport trunk native vlan 8
  switchport trunk allowed vlan 3-4
  switchport mode trunk
@@ -89,5 +88,47 @@ interface FastEthernet0/2
  switchport mode access
  shutdown
 !
+interface FastEthernet0/5
+ switchport trunk allowed vlan 3-4,8
+ switchport mode trunk
+!
+interface FastEthernet0/6
+ switchport access vlan 3
+ switchport mode access
+!
+interface Vlan3
+ ip address 192.168.3.11 255.255.255.0
+!
+ip default-gateway 192.168.3.1
+!
 
+```
+
+на втором коммутаторе аналогично, только свои вланы и нужные порты
+
+###  Пример настройки на маршрутизаторе R1:
+
+```
+service password-encryption
+!
+hostname R1
+!
+enable secret 5 $1$mERr$9cTjUIEqNGurQiFU.ZeCi1
+!
+no ip domain-lookup
+!
+banner motd ^CAuthorized Access Only!^C
+!
+line con 0
+ password 7 0822455D0A16
+!
+line aux 0
+!
+line vty 0 4
+ password 7 0822455D0A16
+ login
+line vty 5 15
+ password 7 0822455D0A16
+ login
+!
 ```
