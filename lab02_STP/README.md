@@ -32,7 +32,7 @@
 
 Схема в Packettracert
 
-![изображение](https://user-images.githubusercontent.com/39755453/110939747-b4952a00-8357-11eb-9ef4-b626c2c6f589.png)
+![image](https://user-images.githubusercontent.com/39755453/110992074-407a7680-8397-11eb-96a6-b507634c3aa4.png)
 
 Таблица адресации
 
