@@ -31,7 +31,7 @@
 
 Схема в Packettracert
 
-![image](https://user-images.githubusercontent.com/39755453/110992074-407a7680-8397-11eb-96a6-b507634c3aa4.png)
+![image](https://user-images.githubusercontent.com/39755453/110995539-53437a00-839c-11eb-8c3f-0a17251206b7.png)
 
 Таблица адресации
 
@@ -104,3 +104,4 @@ int ra fa0/2, fa0/4
 
 ![image](https://user-images.githubusercontent.com/39755453/110994538-ba602f00-839a-11eb-8f29-7280aba29380.png)
 
+Исходя из настроек, видно, что коммутатор S2 в качестве корневого, так как имеет наименьший mac-address. Порты fa0/2 и fa0/4 являются назначенными, порты S1 
