@@ -85,3 +85,22 @@ int ra fa0/2, fa0/4
 ### **2. Настройть подключенные порты в качестве транковых.**
 
 Данные настройки приведены в базовых
+
+### **3. Включить порты F0/2 и F0/4 на всех коммутаторах.**
+
+Данные настройки приведены в базовых
+
+### **4. Отобразить данные протокола spanning-tree.**
+
+Данные настроек протокола spanning-tree на S1
+
+![image](https://user-images.githubusercontent.com/39755453/110994312-6ead8580-839a-11eb-95df-0020e4aecb15.png)
+
+Данные настроек протокола spanning-tree на S2
+
+![image](https://user-images.githubusercontent.com/39755453/110994444-9b619d00-839a-11eb-8316-6741a7a384be.png)
+
+Данные настроек протокола spanning-tree на S3
+
+![image](https://user-images.githubusercontent.com/39755453/110994538-ba602f00-839a-11eb-8f29-7280aba29380.png)
+
