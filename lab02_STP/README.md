@@ -63,6 +63,15 @@ int ra fa0/1-4
  sw mode trunk
 int ra fa0/2, fa0/4
  no sh
- 
 ```
+### **2. Проверка связи.**
+
+Проверяем эхо-запросы от коммутатора S1 на коммутаторы S2 и S3
+
+![image](https://user-images.githubusercontent.com/39755453/110992848-5177b780-8398-11eb-8476-632701a03225.png)
+
+Проверяем эхо-запросы от коммутатора S2 на коммутатор S3
+
+![image](https://user-images.githubusercontent.com/39755453/110993139-b7643f00-8398-11eb-9767-a424bb4ac257.png)
+
 
