@@ -102,7 +102,7 @@ int ra fa0/2, fa0/4
 
 Данные настроек протокола spanning-tree на S3
 
-![image](https://user-images.githubusercontent.com/39755453/110994538-ba602f00-839a-11eb-8f29-7280aba29380.png)
+![S3-stp](https://user-images.githubusercontent.com/39755453/111042393-ff4d9980-845e-11eb-8735-653a849154ca.png)
 
 Исходя из настроек, видно, что коммутатор S2 выбран в качестве корневого, так как имеет наименьший mac-address. Порты на S2 fa0/2 и fa0/4 являются назначенными; порты на S1: fa0/2 - корневой (так как прямой порт в корневой коммутатор S2), fa0/4 - назначенный; порты на S3: fa0/2 - корневой (так как прямой порт в корневой корневой коммутатор S2), fa0/4 - альтернативный (выбран в качестве альтернативного, так как mac-address S1 имеет меньшее значение, чем на S3).
 
@@ -111,24 +111,7 @@ int ra fa0/2, fa0/4
 
 ### **1. Определение коммутатора с заблокированным портом.**
 
-S3#sh sp
-VLAN0001
-  Spanning tree enabled protocol ieee
-  Root ID    Priority    32769
-             Address     0001.6373.C0E9
-             Cost        19
-             Port        2(FastEthernet0/2)
-             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
-
-  Bridge ID  Priority    32769  (priority 32768 sys-id-ext 1)
-             Address     0009.7C15.9BA6
-             Hello Time  2 sec  Max Age 20 sec  Forward Delay 15 sec
-             Aging Time  20
-
-Interface        Role Sts Cost      Prio.Nbr Type
----------------- ---- --- --------- -------- --------------------------------
-Fa0/2            Root FWD 19        128.2    P2p
-Fa0/4            Altn BLK 19        128.4    P2p
+![S3-stp2](https://user-images.githubusercontent.com/39755453/111042475-6a976b80-845f-11eb-878c-eabe6c0e9c11.png)
 
 ### **2. Изменение стоимость порта.**
 
