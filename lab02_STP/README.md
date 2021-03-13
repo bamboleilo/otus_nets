@@ -94,11 +94,11 @@ int ra fa0/2, fa0/4
 
 Данные настроек протокола spanning-tree на S1
 
-![image](https://user-images.githubusercontent.com/39755453/110994312-6ead8580-839a-11eb-95df-0020e4aecb15.png)
+![S1-stp](https://user-images.githubusercontent.com/39755453/111042347-c7deed00-845e-11eb-915e-37c807842869.png)
 
 Данные настроек протокола spanning-tree на S2
 
-![image](https://user-images.githubusercontent.com/39755453/110994444-9b619d00-839a-11eb-8316-6741a7a384be.png)
+![S2-stp](https://user-images.githubusercontent.com/39755453/111042355-d200eb80-845e-11eb-81cd-a103cdf529aa.png)
 
 Данные настроек протокола spanning-tree на S3
 
