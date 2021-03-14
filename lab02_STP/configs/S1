@@ -1,4 +1,4 @@
-Current configuration : 1602 bytes
+Current configuration : 1563 bytes
 !
 version 15.0
 no service timestamps log datetime msec
@@ -20,14 +20,13 @@ spanning-tree extend system-id
 !
 interface FastEthernet0/1
  switchport mode trunk
- shutdown
 !
 interface FastEthernet0/2
  switchport mode trunk
+ spanning-tree cost 18
 !
 interface FastEthernet0/3
  switchport mode trunk
- shutdown
 !
 interface FastEthernet0/4
  switchport mode trunk
@@ -109,11 +108,9 @@ line con 0
 !
 line vty 0 4
  password cisco
- logging synchronous
  login
 line vty 5 15
  password cisco
- logging synchronous
  login
 !
 !
