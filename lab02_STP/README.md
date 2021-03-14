@@ -117,10 +117,15 @@ int ra fa0/2, fa0/4
 
 ```
 S3(config)# interface f0/2
-S3(config-if)# no spanning-tree cost 18
+S3(config-if)# no spanning-tree vlan 1 cost 18
 ```
 
 ### **3. Просмотр изменения протокола spanning-tree.**
+
+![stp-cost](https://user-images.githubusercontent.com/39755453/111067207-015a3b80-84e5-11eb-9940-a7c56a694168.png)
+
+![image](https://user-images.githubusercontent.com/39755453/111067232-26e74500-84e5-11eb-843f-4a0140ca2819.png)
+
 
 ### **4. Удалить изменения стоимости порта.**
 
