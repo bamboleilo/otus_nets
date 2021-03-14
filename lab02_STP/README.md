@@ -113,11 +113,11 @@ int ra fa0/2, fa0/4
 
 ![S3-stp2](https://user-images.githubusercontent.com/39755453/111042475-6a976b80-845f-11eb-878c-eabe6c0e9c11.png)
 
-### **2. Изменение стоимость порта.**
+### **2. Изменение стоимости порта.**
 
 ```
 S3(config)# interface f0/2
-S3(config-if)# no spanning-tree vlan 1 cost 18
+S3(config-if)# spanning-tree vlan 1 cost 18
 ```
 
 ### **3. Просмотр изменения протокола spanning-tree.**
@@ -126,7 +126,28 @@ S3(config-if)# no spanning-tree vlan 1 cost 18
 
 ![image](https://user-images.githubusercontent.com/39755453/111067232-26e74500-84e5-11eb-843f-4a0140ca2819.png)
 
-
 ### **4. Удалить изменения стоимости порта.**
 
+```
+S3(config)# interface f0/2
+S3(config-if)# no spanning-tree vlan 1 cost 18
+```
+
 # **Часть 4:	Наблюдение за процессом выбора протоколом STP порта, исходя из приоритета портов**
+
+Включаем порты fa0/1 и fa0/3 на всех коммутаторах.
+Примен настройки на S1:
+
+```
+S1(config)# interface range fa0/1, fa0/3
+S1(config-if)# no sh
+```
+Просматриваем изменения топологии STP:
+
+![stp-s1-change-topology](https://user-images.githubusercontent.com/39755453/111067881-14bad600-84e8-11eb-8367-418be98bceff.png)
+
+![stp-s3-change-topology](https://user-images.githubusercontent.com/39755453/111067883-1a182080-84e8-11eb-9527-669c0ddf4ab0.png)
+
+Как мы видим порт корневого моста переместился на порт с меньшим номером, связанный с коммутатором корневого моста, и заблокировал предыдущий порт корневого моста.
+
+
