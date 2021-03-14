@@ -1,4 +1,4 @@
-Current configuration : 1560 bytes
+Current configuration : 1540 bytes
 !
 version 15.0
 no service timestamps log datetime msec
@@ -20,14 +20,12 @@ spanning-tree extend system-id
 !
 interface FastEthernet0/1
  switchport mode trunk
- shutdown
 !
 interface FastEthernet0/2
  switchport mode trunk
 !
 interface FastEthernet0/3
  switchport mode trunk
- shutdown
 !
 interface FastEthernet0/4
  switchport mode trunk
