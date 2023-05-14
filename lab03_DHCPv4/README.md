@@ -31,132 +31,173 @@
 
 ### **1. Установить схему адресации**
 
-Схема в EVE-NG
-
-![DHCPv4](https://github.com/bamboleilo/otus_nets/assets/39755453/ca418db8-2b46-4e4d-86af-8da813a4dd7c)
-
 Таблица адресации
 
 |  Устройство  | Интерфейс | IP-адрес      | Маска подсети   |
 |--------------|-----------|---------------|-----------------|
 | R1           | E0/0      | 10.0.0.1      | 255.255.255.252 |
 | R1           | E0/1.100  | 192.168.1.1   | 255.255.255.192 |
-| R1           | E0/1.200  | 192.168.1.65  | 255.255.255.192 |
+| R1           | E0/1.200  | 192.168.1.65  | 255.255.255.224 |
 | R2           | E0/0      | 10.0.0.1      | 255.255.255.252 |
 | R2           | E0/1      | 192.168.1.97  | 255.255.255.240 |
-| S3           | VLAN1     | 192.168.1.3   | 255.255.255.0   |
-| S3           | VLAN1     | 192.168.1.3   | 255.255.255.0   |
-| S3           | VLAN1     | 192.168.1.3   | 255.255.255.0   |
-| S3           | VLAN1     | 192.168.1.3   | 255.255.255.0   |
+| S1           | VLAN200   | 192.168.1.66  | 255.255.255.224 |
+| S2           | VLAN1     | 192.168.1.98  | 255.255.255.240 |
 
- 
-Пример настройки базовых параметров для S1
+### **2. Подключение сети, как показано в топологии**
 
-```
-hostname S1
+Схема в EVE-NG
+
+![DHCPv4](https://github.com/bamboleilo/otus_nets/assets/39755453/ca418db8-2b46-4e4d-86af-8da813a4dd7c)
+
+### **3. Настройка основных параметров для каждого маршрутизатора**
+
+Пример настройки базовых параметров для R1
+
+hostname R1
 no ip domain-lookup
 enable secret class
-line vty 0 15
+line console 0
+ password cisco
+ login
+line vty 0 4
  password cisco
  login
  transport input all
+service password-encryption 
 banner motd #Authorized Access Only!#
-int vlan 1
- no sh
- ip address 192.168.1.1 255.255.255.0
-int ra fa0/1-24
- sh
-int ra gi0/1-2
- sh
-int ra fa0/1-4
- sw mode trunk
-int ra fa0/2, fa0/4
- no sh
-```
-Аналогично проводим настройка и коммутаторами S2 и S3
+clock timezone PST 3
 
-### **2. Проверка связи.**
+### **4. Настройка маршрутизации между VLAN на маршрутизаторе R1**
 
-Проверяем эхо-запросы от коммутатора S1 на коммутаторы S2 и S3
+interface Ethernet0/0
+ ip address 10.0.0.1 255.255.255.252
+ no shutdown
+interface Ethernet0/1
+ no shutdown
+interface Ethernet0/1.100
+ encapsulation dot1Q 100
+ ip address 192.168.1.1 255.255.255.192
+interface Ethernet0/1.200
+ encapsulation dot1Q 200
+ ip address 192.168.1.65 255.255.255.224
+ip route 0.0.0.0 0.0.0.0 10.0.0.2
 
-![image](https://user-images.githubusercontent.com/39755453/110992848-5177b780-8398-11eb-8476-632701a03225.png)
+### **5. Настройка E0/1 на маршрутизаторе R2, затем E0/0 и статическуя маршрутизация обоих маршрутизаторов**
 
-Проверяем эхо-запросы от коммутатора S2 на коммутатор S3
+interface Ethernet0/1
+ ip address 192.168.1.97 255.255.255.240
+ no shutdown
+interface Ethernet0/0
+ ip address 10.0.0.2 255.255.255.252
+ no shutdown
+ip route 0.0.0.0 0.0.0.0 10.0.0.1
+ 
 
-![image](https://user-images.githubusercontent.com/39755453/110993139-b7643f00-8398-11eb-9767-a424bb4ac257.png)
+### **6. Настройка основных параметров для каждого коммутатора**
 
-# **Часть 2: Определение корневого моста**
+Пример настройки базовых параметров для S1
 
-### **1. Отключить все порты на коммутаторах**
+hostname S1
+no ip domain-lookup
+enable secret class
+line console 0
+ password cisco
+ login
+line vty 0 4
+ password cisco
+ login
+ transport input all
+service password-encryption 
+banner motd #Authorized Access Only!#
+clock timezone PST 3
 
-Данные настройки приведены в базовых
+### **7. Создание VLAN-ов на S1**
 
-### **2. Настройть подключенные порты в качестве транковых.**
-
-Данные настройки приведены в базовых
-
-### **3. Включить порты F0/2 и F0/4 на всех коммутаторах.**
-
-Данные настройки приведены в базовых
-
-### **4. Отобразить данные протокола spanning-tree.**
-
-Данные настроек протокола spanning-tree на S1
-
-![S1-stp](https://user-images.githubusercontent.com/39755453/111042347-c7deed00-845e-11eb-915e-37c807842869.png)
-
-Данные настроек протокола spanning-tree на S2
-
-![S2-stp](https://user-images.githubusercontent.com/39755453/111042355-d200eb80-845e-11eb-81cd-a103cdf529aa.png)
-
-Данные настроек протокола spanning-tree на S3
-
-![S3-stp](https://user-images.githubusercontent.com/39755453/111042393-ff4d9980-845e-11eb-8735-653a849154ca.png)
-
-Исходя из настроек, видно, что коммутатор S2 выбран в качестве корневого, так как имеет наименьший mac-address. Порты на S2 fa0/2 и fa0/4 являются назначенными; порты на S1: fa0/2 - корневой (так как прямой порт в корневой коммутатор S2), fa0/4 - назначенный; порты на S3: fa0/2 - корневой (так как прямой порт в корневой корневой коммутатор S2), fa0/4 - альтернативный (выбран в качестве альтернативного, так как mac-address S1 имеет меньшее значение, чем на S3).
+vlan 100
+ name Client
+vlan 200
+ name Management
+vlan 999
+ name Parking_Lot
+vlan 1000
+ name Native
 
 
-# **Часть 3:	Наблюдение за процессом выбора протоколом STP порта, исходя из стоимости портов**
+### **8. Назначение VLAN-ов для соответствующих интерфейсов коммутатора**
 
-### **1. Определение коммутатора с заблокированным портом.**
+interface Ethernet0/0
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+interface Ethernet0/2
+ switchport access vlan 999
+ switchport mode access
+ shutdown
+interface Ethernet0/3
+ switchport access vlan 100
+ switchport mode access
 
-![S3-stp2](https://user-images.githubusercontent.com/39755453/111042475-6a976b80-845f-11eb-878c-eabe6c0e9c11.png)
 
-### **2. Изменение стоимости порта.**
+### **9. Ручная настройка интерфейса S1 E0/1 как магистраль 802.1Q**
 
-```
-S3(config)# interface f0/2
-S3(config-if)# spanning-tree vlan 1 cost 18
-```
+interface Ethernet0/1
+ switchport trunk allowed vlan 100,200,1000
+ switchport trunk encapsulation dot1q
+ switchport trunk native vlan 1000
+ switchport mode trunk
 
-### **3. Просмотр изменения протокола spanning-tree.**
 
-![stp-cost](https://user-images.githubusercontent.com/39755453/111067207-015a3b80-84e5-11eb-9940-a7c56a694168.png)
+# **Часть 2: Конфигурирование и проверка 2-х DHCP серверов на R1**
 
-![image](https://user-images.githubusercontent.com/39755453/111067232-26e74500-84e5-11eb-843f-4a0140ca2819.png)
+### **1. Настройка R1 с пулами DHCPv4 для двух поддерживаемых подсетей**
 
-### **4. Удалить изменения стоимости порта.**
+ip dhcp excluded-address 192.168.1.1 192.168.1.5
+ip dhcp excluded-address 192.168.1.97 192.168.1.101
+ip dhcp pool LAN_A
+ network 192.168.1.0 255.255.255.192
+ domain-name ccna-lab.com
+ default-router 192.168.1.1
+ lease 2 12 30
+ip dhcp pool R2_Client_LAN
+ network 192.168.1.96 255.255.255.224
+ domain-name ccna-lab.com
+ default-router 192.168.1.97
+ lease 2 12 30
 
-```
-S3(config)# interface f0/2
-S3(config-if)# no spanning-tree vlan 1 cost 18
-```
+### **2. Сохранение конфигурации**
 
-# **Часть 4:	Наблюдение за процессом выбора протоколом STP порта, исходя из приоритета портов**
+copy running-config startup-config
 
-Включаем порты fa0/1 и fa0/3 на всех коммутаторах.
-Примен настройки на S1:
+### **3. Проверка конфигурации сервера DHCPv4**
 
-```
-S1(config)# interface range fa0/1, fa0/3
-S1(config-if)# no sh
-```
-Просматриваем изменения топологии STP:
+![DHCP-verify](https://github.com/bamboleilo/otus_nets/assets/39755453/20a911ac-682d-41b3-bf22-a8c86c396870)
 
-![stp-s1-change-topology](https://user-images.githubusercontent.com/39755453/111067881-14bad600-84e8-11eb-8367-418be98bceff.png)
 
-![stp-s3-change-topology](https://user-images.githubusercontent.com/39755453/111067883-1a182080-84e8-11eb-9527-669c0ddf4ab0.png)
+### **4. Попытка получить IP-адрес от DHCP на PC-A**
 
-Как мы видим порт корневого моста переместился на порт с меньшим номером, связанный с коммутатором корневого моста, и заблокировал предыдущий порт корневого моста.
+![PC-A](https://github.com/bamboleilo/otus_nets/assets/39755453/87822038-cb3f-45db-9140-89223083c242)
+
+![PC-A_ping](https://github.com/bamboleilo/otus_nets/assets/39755453/5859b9e1-16c1-4753-b09f-cc5cc8c2058f)
+
+
+
+# **Часть 3: Конфигурирование и проверка DHCP Relay на R2**
+
+### **1. Настройка R2 в качестве агента DHCP Relay для локальной сети на e0/1**
+
+interface Ethernet0/1
+ ip helper-address 10.0.0.1
+ 
+copy running-config startup-config
+
+### **2. Попытка получить IP-адрес от DHCP на PC-B**
+
+![PC-B](https://github.com/bamboleilo/otus_nets/assets/39755453/ce7ff8f2-b8c4-4cd6-b6fa-39651d6d94c8)
+
+![изображение](https://github.com/bamboleilo/otus_nets/assets/39755453/72149952-3774-49cb-af5b-d3622d4ca487)
+
+![изображение](https://github.com/bamboleilo/otus_nets/assets/39755453/c561ac5c-80cb-4ae3-93ec-8e0781c6ef44)
+
+
 
 Все файлы конфигураций приведены [здесь](configs/)
