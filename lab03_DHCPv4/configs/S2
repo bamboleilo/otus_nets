@@ -79,6 +79,7 @@ banner motd ^CCThis is a secure system. Authorized Access Only!^C
 line con 0
  password 7 14141B180F0B
  logging synchronous
+ login
 line aux 0
 line vty 0 4
  password 7 13061E010803
