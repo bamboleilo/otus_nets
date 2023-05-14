@@ -1,5 +1,3 @@
-Current configuration : 1680 bytes
-!
 version 15.4
 service timestamps debug datetime msec
 service timestamps log datetime msec
@@ -43,6 +41,7 @@ ip dhcp pool R2_Client_LAN
  network 192.168.1.96 255.255.255.224
  domain-name ccna-lab.com
  default-router 192.168.1.97
+ lease 2 12 30
 !
 !
 !
@@ -125,11 +124,12 @@ banner motd ^CThis is a secure system. Authorized Access Only!^C
 line con 0
  password 7 045802150C2E
  logging synchronous
+ login
 line aux 0
 line vty 0 4
  password 7 14141B180F0B
  login
- transport input none
+ transport input all
 !
 !
 end
