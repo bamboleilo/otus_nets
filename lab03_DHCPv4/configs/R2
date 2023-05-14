@@ -1,5 +1,3 @@
-Current configuration : 1140 bytes
-!
 version 15.4
 service timestamps debug datetime msec
 service timestamps log datetime msec
@@ -102,12 +100,12 @@ banner motd ^CThis is a secure system. Authorized Access Only!^C
 line con 0
  password 7 00071A150754
  logging synchronous
+ login
 line aux 0
 line vty 0 4
  password 7 030752180500
  login
- transport input none
+ transport input all
 !
 !
 end
-
